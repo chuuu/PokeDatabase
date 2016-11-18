@@ -1,0 +1,282 @@
+<html>
+  <head>
+    <meta http-equiv="Cache-control" content="no-cache">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+
+  </head>
+
+
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+
+<form method="POST" action="/search">
+  <h1>Welcome to PokeDatabase! </h1>
+  <p>I want to learn everything about...
+    <select name="chooseall">
+        <option value="0">Select</option>
+        <option value="1">Bag</option>
+        <option value="2">Item</option>
+        <option value="3">Player</option>
+        <option value="4">Pokemon</option>
+        <option value="5">Pokemon Family</option>
+        <option value="6">Region</option>
+        <option value="7">Team</option>
+    </select>
+    <input type="submit" value="Search!" id="searchbutton">
+  </p>
+</form>
+ <!-- <div>{{data}}</div>-->
+
+
+<!--Dynamic Bag Table-->
+<table style="width:50%">
+  {% for item in data %}
+  <tr>
+    <th>{{item.bid}}</th>
+    <th>{{item.numitems}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<!--Dynamic Item Table-->
+<table style="width:50%">
+  {% for item in itemdata %}
+  <tr>
+    <th>{{item.iid}}</th>
+    <th>{{item.itemname}}</th>
+    <th>{{item.numofthisitem}}</th>
+    <th>{{item.bid}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<!--Dynamic Player Table-->
+<table style="width:50%">
+  {% for item in playerdata %}
+  <tr>
+    <th>{{item.uid}}</th>
+    <th>{{item.ulevel}}</th>
+    <th>{{item.gender}}</th>
+    <th>{{item.bid}}</th>
+    <th>{{item.regionname}}</th>
+    <th>{{item.teamname}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<!--Dynamic Pokemon Table-->
+<table style="width:50%">
+  {% for item in pokedata %}
+  <tr>
+    <th>{{item.pid}}</th>
+    <th>{{item.plevel}}</th>
+    <th>{{item.familyname}}</th>
+    <th>{{item.pname}}</th>
+    <th>{{item.uid}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<!--Dynamic pokemonfamily Table-->
+<table style="width:50%">
+  {% for item in familydata %}
+  <tr>
+    <th>{{item.familyname}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<!--Dynamic region Table-->
+<table style="width:50%">
+  {% for item in regiondata %}
+  <tr>
+    <th>{{item.regionname}}</th>
+    <th>{{item.numplayers}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<!--Dynamic team Table-->
+<table style="width:50%">
+  {% for item in teamdata %}
+  <tr>
+    <th>{{item.tname}}</th>
+    <th>{{item.totnumplayers}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<!--
+<div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+-->
+
+<!--<p><a href="another.html">Go to the other page</a></p>-->
+
+<h1>Ask Pokedata in this way!  Pokedata, give me...</h1>
+
+<form method="POST" action="/seeuid">
+<p>...all pokemons owned by user with id
+    <input type="text" name="seeuid">
+    <input type="submit" value="Let's See!" id="see">
+</p>
+</form>
+
+<!--Dynamic Search Result Table for uid find pokemons-->
+<table style="width:50%">
+  {% for item in seepokedata %}
+  <tr>
+    <th>{{item.pid}}</th>
+    <th>{{item.plevel}}</th>
+    <th>{{item.familyname}}</th>
+    <th>{{item.pname}}</th>
+    <th>{{item.uid}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method="POST" action="/seeinfouid">
+<p>...information of user with id
+    <input type="text" name="seeuid">
+    <input type="submit" value="Let's See!" id="see">
+</p>
+</form>
+
+<!--Dynamic result Table for uid find player info-->
+<table style="width:50%">
+  {% for item in seeinfodata %}
+  <tr>
+    <th>{{item.uid}}</th>
+    <th>{{item.ulevel}}</th>
+    <th>{{item.gender}}</th>
+    <th>{{item.bid}}</th>
+    <th>{{item.regionname}}</th>
+    <th>{{item.teamname}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method="POST" action="/seepokename">
+<p>...the Pokemon Family this Pokemon belongs to
+    <input type="text" name="seepokename">
+    <input type="submit" value="Let's See!" id="see">
+</p>
+</form>
+
+<!--Dynamic result Table pokename for pokemon family-->
+<div>
+    {% for n in seefamilydata %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+
+<form method="POST" action="/seefamily">
+<p>...all Pokemons in Pokemon Family 
+    <input type="text" name="seefamily">
+    <input type="submit" value="Let's See!" id="see">
+</p>
+</form>
+
+<!--Dynamic result Table all pokemons in family-->
+<div>
+    {% for n in seethisfamilydata %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+
+<form method="POST" action="/seeregion">
+<p>...all players in region
+    <input type="text" name="seeregion">
+    <input type="submit" value="Let's See!" id="see">
+</p>
+</form>
+
+<!--Dynamic result Table for all players in region-->
+<table style="width:50%">
+  {% for item in seeapirdata %}
+  <tr>
+    <th>{{item.uid}}</th>
+    <th>{{item.ulevel}}</th>
+    <th>{{item.gender}}</th>
+    <th>{{item.bid}}</th>
+    <th>{{item.regionname}}</th>
+    <th>{{item.teamname}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method="POST" action="/seeteam">
+<p>...all players in team
+    <input type="text" name="seeteam">
+    <input type="submit" value="Let's See!" id="see">
+</p>
+</form>
+
+<!--Dynamic result Table for all players in region-->
+<table style="width:50%">
+  {% for item in seeapitdata %}
+  <tr>
+    <th>{{item.uid}}</th>
+    <th>{{item.ulevel}}</th>
+    <th>{{item.gender}}</th>
+    <th>{{item.bid}}</th>
+    <th>{{item.regionname}}</th>
+    <th>{{item.teamname}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+
+
+
+<form method="POST" action="/add">
+<h1>I want to add a new...
+ 
+      <select id="children" name="trying">
+        <option value="0">Select</option>
+        <option value="1">Bag</option>
+        <option value="2">Item</option>
+        <option value="3">Player</option>
+        <option value="4">Pokemon</option>
+        <option value="5">Pokemon Family</option>
+        <option value="6">Region</option>
+        <!--<option value="7">Team</option>-->
+
+    </select></h1>
+    <div id="childrenAge"></div>
+    <script type="text/javascript" src="{{ url_for('static', filename='16.js') }}"></script>
+    <input type="submit" value="Add" id="submitbutton">
+
+
+
+</form>
+
+<form method="POST" action="/modify">
+<h1>I want to modify...</h1>
+    <p>...an existing pokemon's data!</p>
+    <div><label>Please enter its Pokemon ID: </label><input type="text" name="pidmodify"></div>
+    <p>Enter all the other information of this Pokemon:</p>
+    <div><label>Level: </label><input type="text" name="plevelmodify"></div>
+    <div><label>Pokemon Family: </label><input type="text" name="familynamemodify"></div>
+    <div><label>Pokemon Type: </label><input type="text" name="pnamemodify"></div>
+    <div><label>ID of its owner user: </label><input type="text" name="uidmodify"></div>
+    <input type="submit" value="Update!" id="modifysubmit">
+
+</form>
+
+</body>
+
+
+</html>
